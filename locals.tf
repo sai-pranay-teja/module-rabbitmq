@@ -1,0 +1,3 @@
+local{
+    parameters=[var.component]
+}
