@@ -4,7 +4,7 @@ resource "aws_route53_record" "component-records" {
     name    = "rabbitmq-${var.env}.practise-devops.online"
     type    = "A"
     ttl     = 30
-    records = [aws_spot_instance_request.components.private_ip]
+    records = [aws_spot_instance_request.rabbitmq.private_ip]
 }
 
 
@@ -37,7 +37,7 @@ resource "aws_spot_instance_request" "rabbitmq" {
 resource "aws_ec2_tag" "component-tags" {
     resource_id = aws_spot_instance_request.rabbitmq.spot_instance_id
     key         = "Name"
-    value       = "${env}-Rabbitmq"
+    value       = "${var.env}-Rabbitmq"
 }
 
 resource "aws_security_group" "rabbitmq-traffic" {
