@@ -8,7 +8,7 @@ resource "aws_route53_record" "component-records" {
 }
 
 
-resource "aws_spot_instance_request" "components" {
+resource "aws_spot_instance_request" "rabbitmq" {
   ami           = data.aws_ami.centos-ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [ aws_security_group.rabbitmq-traffic.id ]
@@ -32,6 +32,12 @@ resource "aws_spot_instance_request" "components" {
     create = "60m"
     delete = "2h"
   }
+}
+
+resource "aws_ec2_tag" "component-tags" {
+    resource_id = aws_spot_instance_request.rabbitmq.spot_instance_id
+    key         = "Name"
+    value       = "${env}-Rabbitmq"
 }
 
 resource "aws_security_group" "rabbitmq-traffic" {
