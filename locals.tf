@@ -1,3 +1,3 @@
-local{
+locals{
     parameters=[var.component]
 }
