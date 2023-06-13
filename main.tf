@@ -59,7 +59,7 @@ resource "aws_security_group" "rabbitmq-traffic" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = var.bastion_host
+    cidr_blocks      = [data.aws_vpc.default.cidr_block]
   }
   egress {
     from_port        = 0
