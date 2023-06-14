@@ -30,6 +30,7 @@ resource "aws_iam_role" "full-access-role" {
 
 resource "aws_iam_policy" "full-access-policy" {
   name        = "${var.env}-policy"
+  path = "/"
   policy = jsonencode({
     
     "Version": "2012-10-17",
