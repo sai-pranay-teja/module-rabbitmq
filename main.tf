@@ -91,6 +91,11 @@ resource "aws_instance" "rabbitmq" {
   vpc_security_group_ids = [ aws_security_group.rabbitmq-traffic.id ]
   subnet_id = var.subnet_ids[0]
   iam_instance_profile = aws_iam_instance_profile.Full-access-profile.name
+  user_data = base64encode(templatefile("${path.module}/userdata.sh" , {
+    component=var.component
+
+
+  }))
   tags = {
         Name = "${var.env}-rabbitmq-server"
     }
